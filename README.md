@@ -27,7 +27,7 @@
 | category_id      | integer    | null: false                    |
 | quality_id       | integer    | null: false                    |
 | ship_fee_id      | integer    | null: false                    |
-| ship_area_id     | integer    | null: false                    |
+| country_id       | integer    | null: false                    |
 | ship_day_id      | integer    | null: false                    |
 | price            | integer    | null: false                    |
 | user             | references | null: false, foreign_key: true |
@@ -37,11 +37,11 @@
 - has_one :purchase
 - belongs_to :user
 
-## purchase table
+## purchases table
 
 | Column    | Type       | Options                        |
 | --------- | ---------- | ------------------------------ |
-| items     | references | null: false, foreign_key: true |
+| item      | references | null: false, foreign_key: true |
 | user      | references | null: false, foreign_key: true |
 
 ### Association
@@ -50,16 +50,16 @@
 - belongs_to :item
 - has_one :address
 
-## address table
+## addresses table
 
 | Column         | Type       | Options                        |
 | -------------- | ---------- | ------------------------------ |
-| zip_code       | integer    | null: false                    |
+| zip_code       | string     | null: false                    |
 | country_id     | integer    | null: false                    |
 | city           | string     | null: false                    |
 | st_address     | string     | null: false                    |
-| building       | string     | null: false                    |
-| phone_num      | integer    | null: false                    |
+| building       | string     |                                |
+| phone_num      | string     | null: false                    |
 | purchase       | references | null: false, foreign_key: true |
 
 ### Association
