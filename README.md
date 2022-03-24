@@ -1,24 +1,57 @@
-# README
+# テーブル設計
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## users table
 
-Things you may want to cover:
+| Column             | Type   | Options                   |
+| ------------------ | ------ | ------------------------- |
+| nickname           | string | null: false               |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false               |
+| name               | string | null: false               | 
+| birthday           | date   | null: false               |
 
-* Ruby version
+### Association
 
-* System dependencies
+- has_many :items
+- has_many :purchases
 
-* Configuration
+## items table
 
-* Database creation
+| Column           | Type       | Options                        |
+| ---------------- | ---------- | ------------------------------ |
+| item-name        | string     | null: false                    |
+| item-description | text       | null: false                    |
+| item-detail      | string     | null: false                    |
+| shipment         | string     | null: false                    |
+| price            | string     | null: false                    |
+| user_id          | reference  | null: false, foreign_key: true |
 
-* Database initialization
+### Association
 
-* How to run the test suite
+- has_one :purchase
+- belongs_to :users
 
-* Services (job queues, cache servers, search engines, etc.)
+## purchase table
 
-* Deployment instructions
+| Column    | Type       | Options                        |
+| --------- | ---------- | ------------------------------ |
+| cc-info   | text       | null: false                    |
+| items_id  | references | null: false, foreign_key: true |
+| user_id   | references | null: false, foreign_key: true |
 
-* ...
+### Association
+
+- belongs_to :user
+- belongs_to :items
+- has_one :address
+
+## address table
+
+| Column         | Type       | Options                        |
+| -------------- | ---------- | ------------------------------ |
+| ship-address   | text       | null: false                    |
+| purchase_id    | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :purchase
