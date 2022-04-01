@@ -13,7 +13,8 @@ class Item < ApplicationRecord
   validates :ship_fee_id, numericality: { other_than: 1 }
   validates :country_id, numericality: { other_than: 0 }
   validates :ship_day_id, numericality: { other_than: 1 }
-  validates :price, presence: true
+  #validates :price, presence: true, format: { with: /\A\d{3,7}+\z/  }
+  validates_inclusion_of :price, in:300..9999999
   #validates :user, presence: true
 
   belongs_to :user
