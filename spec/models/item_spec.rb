@@ -28,8 +28,18 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
+      it "category_idに「---」が選択されている場合は登録できない" do
+        @item.category_id = "1"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Category can't be blank")
+      end
       it "quality_idが空では出品できない" do
         @item.quality_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Quality can't be blank")
+      end
+      it "quality_idに「---」が選択されている場合は登録できない" do
+        @item.quality_id = "1"
         @item.valid?
         expect(@item.errors.full_messages).to include("Quality can't be blank")
       end
@@ -38,13 +48,28 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Ship fee can't be blank")
       end
+      it "ship_fee_idに「---」が選択されている場合は登録できない" do
+        @item.ship_fee_id = '1'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Ship fee can't be blank")
+      end
       it "country_idが空では出品できない" do
         @item.country_id = ''
         @item.valid?
         expect(@item.errors.full_messages).to include("Country can't be blank")
       end
+      it "country_idに「---」が選択されている場合は登録できない" do
+        @item.country_id = '0'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Country can't be blank")
+      end
       it "ship_da_idが空では出品できない" do
         @item.ship_day_id = ''
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Ship day can't be blank")
+      end
+      it "ship_da_idに「---」が選択されている場合は登録できない" do
+        @item.ship_day_id = '1'
         @item.valid?
         expect(@item.errors.full_messages).to include("Ship day can't be blank")
       end
@@ -58,10 +83,20 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is invalid")
       end
-      it "priceは¥300~¥9,999,999の間以外だと登録できない" do
+      it "priceは¥300未満だと登録できない" do
         @item.price = '200'
         @item.valid?
         expect(@item.errors.full_messages).to include("Price is invalid")
+      end
+      it "priceは¥9,999,999を超えると登録できない" do
+        @item.price = '10000000'
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is invalid")
+      end
+      it 'userが紐づいていなければ出品出来ない' do
+        @item.user = nil
+        @item.valid?
+        expect(@item.errors.full_messages).to include("User must exist")
       end
     end
   end
