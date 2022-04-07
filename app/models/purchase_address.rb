@@ -11,7 +11,6 @@ class PurchaseAddress
     validates :phone_num, format: {with: /\d{10,11}\z/, message: "is invalid"}
     validates :user_id
     validates :token
-    #validates :item_id
   end
 
   def save
@@ -19,5 +18,4 @@ class PurchaseAddress
 
     Address.create(zip_code: zip_code, country_id: country_id, city: city, st_address: st_address, building: building, phone_num: phone_num, purchase_id: purchase.id)
   end
-  #has_one_attached :image
 end
