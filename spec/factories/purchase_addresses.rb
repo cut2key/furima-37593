@@ -9,6 +9,7 @@ FactoryBot.define do
     st_address {'あああ１−１'}
     #building {}
     phone_num {Faker::Number.number(digits: 10)}
+    token {"tok_abcdefghijk00000000000000000"}
     #association :purchase
   end
 end
