@@ -51,7 +51,7 @@ RSpec.describe PurchaseAddress, type: :model do
       it 'phone_numが-を含んだ入力だと保存できない' do
         @purchase_address.phone_num = '123-456-7890'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Phone num is invalid")
+        expect(@purchase_address.errors.full_messages).to include("Phone num is invalid. Accept number only")
       end
       it 'userが紐付いていないと保存できないこと' do
         @purchase_address.user_id = nil
