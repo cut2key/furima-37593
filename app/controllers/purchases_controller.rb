@@ -1,6 +1,6 @@
 class PurchasesController < ApplicationController
-  before_action :purchase_auth
   before_action :authenticate_user!
+  before_action :purchase_auth
   def index
     @purchase_address = PurchaseAddress.new
   end
@@ -21,8 +21,8 @@ class PurchasesController < ApplicationController
 
   def purchase_auth
     @item = Item.find(params[:item_id])
-    
-    if current_user.id == @item.user_id
+
+    if current_user.id == @item.user_id || @item.purchase.present?
       redirect_to root_path
     end
   end
