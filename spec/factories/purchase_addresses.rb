@@ -10,6 +10,5 @@ FactoryBot.define do
     building {'あ101'}
     phone_num {Faker::Number.number(digits: 10)}
     token {"tok_abcdefghijk00000000000000000"}
-    #association :purchase
   end
 end
