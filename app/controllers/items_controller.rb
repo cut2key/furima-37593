@@ -5,6 +5,7 @@ class ItemsController < ApplicationController
 
   def index
     @items = Item.order(created_at: :desc)
+    
   end
 
   def new
@@ -24,6 +25,9 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    if @item.purchase.present?
+      redirect_to root_path
+    end
   end
 
   def update
