@@ -14,6 +14,7 @@ class Item < ApplicationRecord
   validates :country_id, numericality: { other_than: 0 ,message: "can't be blank" }
   validates :ship_day_id, numericality: { other_than: 1 ,message: "can't be blank" }
   validates_inclusion_of :price, in:300..9999999, message: "is invalid"
+  validates :image, presence: true
 
   belongs_to :user
   has_one_attached :image
