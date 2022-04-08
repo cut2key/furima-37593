@@ -8,8 +8,9 @@ class PurchaseAddress
     validates :country_id, numericality: {other_than: 0, message: "can't be blank"}
     validates :city
     validates :st_address
-    validates :phone_num, format: {with: /\d{10,11}\z/, allow_blank: true, message: "is invalid. Accept number only"}
+    validates :phone_num, format: {with: /\A[0-9]{10,11}\z/, allow_blank: true, message: "is invalid"}
     validates :user_id
+    validates :item_id
     validates :token
   end
 

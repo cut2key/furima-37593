@@ -7,7 +7,7 @@ FactoryBot.define do
     country_id {2}
     city {address.city.kanji}
     st_address {'あああ１−１'}
-    #building {}
+    building {'あ101'}
     phone_num {Faker::Number.number(digits: 10)}
     token {"tok_abcdefghijk00000000000000000"}
     #association :purchase

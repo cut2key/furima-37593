@@ -4,7 +4,8 @@ RSpec.describe PurchaseAddress, type: :model do
   describe '購入情報の保存' do
     before do
       user = FactoryBot.create(:user)
-      @purchase_address = FactoryBot.build(:purchase_address, user_id: user.id)
+      item = FactoryBot.create(:item)
+      @purchase_address = FactoryBot.build(:purchase_address, user_id: user.id, item_id: item.id)
     end
 
     context '内容に問題ない場合' do
@@ -51,12 +52,27 @@ RSpec.describe PurchaseAddress, type: :model do
       it 'phone_numが-を含んだ入力だと保存できない' do
         @purchase_address.phone_num = '123-456-7890'
         @purchase_address.valid?
-        expect(@purchase_address.errors.full_messages).to include("Phone num is invalid. Accept number only")
+        expect(@purchase_address.errors.full_messages).to include("Phone num is invalid")
+      end
+      it 'phone_numが9桁以下では購入できない' do
+        @purchase_address.phone_num = '12345678'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Phone num is invalid")
+      end
+      it 'phone_numが12桁以上では購入できない' do
+        @purchase_address.phone_num = '123456789012'
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Phone num is invalid")
       end
       it 'userが紐付いていないと保存できないこと' do
         @purchase_address.user_id = nil
         @purchase_address.valid?
         expect(@purchase_address.errors.full_messages).to include("User can't be blank")
+      end
+      it 'itemが紐付いていないと保存できない' do
+        @purchase_address.item_id = nil
+        @purchase_address.valid?
+        expect(@purchase_address.errors.full_messages).to include("Item can't be blank")
       end
       it "tokenが空では登録できないこと" do
         @purchase_address.token = nil
